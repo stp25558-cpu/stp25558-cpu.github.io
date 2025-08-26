@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece Fighter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .game-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 30%, #F0E68C 100%);
+        }
+
+        .name-display {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 2px solid #FFD700;
+        }
+
+        .health-bars {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 200px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .health-bar {
+            flex: 1;
+            height: 30px;
+            background: #333;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid #FFD700;
+        }
+
+        .health-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            transition: width 0.3s ease;
+        }
+
+        .player-name {
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 5px;
+        }
+
+        .fighter {
+            position: absolute;
+            width: 100px;
+            height: 150px;
+            transition: all 0.2s ease;
+        }
+
+        .player1 {
+            left: 100px;
+            bottom: 100px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            border-radius: 15px 15px 5px 5px;
+            border: 3px solid #333;
+        }
+
+        .player2 {
+            right: 100px;
+            bottom: 100px;
+            background: linear-gradient(45deg, #4ECDC4, #45B7B8);
+            border-radius: 15px 15px 5px 5px;
+            border: 3px solid #333;
+        }
+
+        .fighter::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #FDBCB4;
+            border-radius: 50%;
+            border: 2px solid #333;
+        }
+
+        .fighter::after {
+            content: '👒';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 25px;
+        }
+
+        .punch {
+            animation: punch 0.3s ease;
+        }
+
+        .hit {
+            animation: hit 0.3s ease;
+        }
+
+        @keyframes punch {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(20px) scale(1.1); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes hit {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); background-color: #FF4444; }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-3px); }
+            100% { transform: translateX(0); }
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .control-btn {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .game-title {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            text-align: center;
+        }
+
+        .victory-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+            display: none;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            border: 3px solid #FFD700;
+        }
+
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, #8B4513, #D2B48C);
+            border-top: 5px solid #654321;
+        }
+
+        .special-btn {
+            background: linear-gradient(45deg, #FF1493, #FF69B4) !important;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #FF1493; }
+            to { box-shadow: 0 0 20px #FF1493, 0 0 30px #FF1493; }
+        }
+
+        .special-attack {
+            animation: special 0.6s ease;
+        }
+
+        @keyframes special {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.3) rotate(10deg); }
+            50% { transform: scale(1.5) rotate(-10deg); }
+            75% { transform: scale(1.3) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="name-display">อชิระ เธียรวรรณ</div>
+        
+        <div class="game-title">🏴‍☠️ One Piece Fighter 🏴‍☠️</div>
+        
+        <div class="health-bars">
+            <div>
+                <div class="player-name">ลูฟี่</div>
+                <div class="health-bar">
+                    <div class="health-fill" id="health1" style="width: 100%;"></div>
+                </div>
+            </div>
+            <div>
+                <div class="player-name">โซโล</div>
+                <div class="health-bar">
+                    <div class="health-fill" id="health2" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ground"></div>
+        
+        <div class="fighter player1" id="player1"></div>
+        <div class="fighter player2" id="player2"></div>
+        
+        <div class="victory-message" id="victoryMessage"></div>
+        
+        <div class="controls">
+            <h3>🎮 คอนโทรล</h3>
+            <div>
+                <button class="control-btn" onclick="movePlayer(1, 'left')">⬅️ ลูฟี่ ซ้าย</button>
+                <button class="control-btn" onclick="movePlayer(1, 'right')">ลูฟี่ ขวา ➡️</button>
+                <button class="control-btn" onclick="attack(1)">👊 ลูฟี่ ชก</button>
+                <button class="control-btn special-btn" onclick="specialAttack(1)">🔥 Gum Gum!</button>
+            </div>
+            <div>
+                <button class="control-btn" onclick="movePlayer(2, 'left')">⬅️ โซโล ซ้าย</button>
+                <button class="control-btn" onclick="movePlayer(2, 'right')">โซโล ขวา ➡️</button>
+                <button class="control-btn" onclick="attack(2)">⚔️ โซโล ฟัน</button>
+                <button class="control-btn special-btn" onclick="specialAttack(2)">⚡ 3-Sword Style!</button>
+            </div>
+            <button class="control-btn" onclick="resetGame()" style="background: linear-gradient(45deg, #32CD32, #228B22);">🔄 เริ่มใหม่</button>
+        </div>
+    </div>
+
+    <script>
+        let player1Health = 100;
+        let player2Health = 100;
+        let gameOver = false;
+
+        const player1 = document.getElementById('player1');
+        const player2 = document.getElementById('player2');
+        const health1 = document.getElementById('health1');
+        const health2 = document.getElementById('health2');
+        const victoryMessage = document.getElementById('victoryMessage');
+
+        // เสียงเอฟเฟกต์ (จำลอง)
+        function playSound(type) {
+            // สามารถเพิ่มเสียงจริงได้ในอนาคต
+            console.log(`Playing ${type} sound effect`);
+        }
+
+        function movePlayer(player, direction) {
+            if (gameOver) return;
+            
+            const playerEl = player === 1 ? player1 : player2;
+            const currentLeft = parseInt(playerEl.style.left) || (player === 1 ? 100 : window.innerWidth - 200);
+            
+            let newLeft;
+            if (direction === 'left') {
+                newLeft = Math.max(50, currentLeft - 50);
+            } else {
+                newLeft = Math.min(window.innerWidth - 150, currentLeft + 50);
+            }
+            
+            playerEl.style.left = newLeft + 'px';
+            playSound('move');
+        }
+
+        function getDistance() {
+            const rect1 = player1.getBoundingClientRect();
+            const rect2 = player2.getBoundingClientRect();
+            return Math.abs(rect1.left - rect2.left);
+        }
+
+        function attack(attacker) {
+            if (gameOver) return;
+            
+            const distance = getDistance();
+            if (distance > 200) {
+                showMessage("ไกลเกินไป! เข้าใกล้ก่อน", 1000);
+                return;
+            }
+            
+            const attackerEl = attacker === 1 ? player1 : player2;
+            const targetEl = attacker === 1 ? player2 : player1;
+            
+            attackerEl.classList.add('punch');
+            setTimeout(() => attackerEl.classList.remove('punch'), 300);
+            
+            // สุ่มแดเมจ
+            const damage = Math.floor(Math.random() * 20) + 10;
+            
+            if (attacker === 1) {
+                player2Health = Math.max(0, player2Health - damage);
+                health2.style.width = player2Health + '%';
+                if (player2Health > 0) {
+                    targetEl.classList.add('hit');
+                    setTimeout(() => targetEl.classList.remove('hit'), 300);
+                }
+            } else {
+                player1Health = Math.max(0, player1Health - damage);
+                health1.style.width = player1Health + '%';
+                if (player1Health > 0) {
+                    targetEl.classList.add('hit');
+                    setTimeout(() => targetEl.classList.remove('hit'), 300);
+                }
+            }
+            
+            playSound('hit');
+            checkGameOver();
+        }
+
+        function specialAttack(attacker) {
+            if (gameOver) return;
+            
+            const distance = getDistance();
+            if (distance > 300) {
+                showMessage("ไกลเกินไป! เข้าใกล้ก่อน", 1000);
+                return;
+            }
+            
+            const attackerEl = attacker === 1 ? player1 : player2;
+            const targetEl = attacker === 1 ? player2 : player1;
+            
+            attackerEl.classList.add('special-attack');
+            setTimeout(() => attackerEl.classList.remove('special-attack'), 600);
+            
+            // ท่าพิเศษทำแดเมจมาก
+            const damage = Math.floor(Math.random() * 30) + 20;
+            
+            if (attacker === 1) {
+                player2Health = Math.max(0, player2Health - damage);
+                health2.style.width = player2Health + '%';
+                showMessage("🔥 Gomu Gomu no Pistol! 🔥", 1500);
+            } else {
+                player1Health = Math.max(0, player1Health - damage);
+                health1.style.width = player1Health + '%';
+                showMessage("⚡ Santoryu Ougi! ⚡", 1500);
+            }
+            
+            if ((attacker === 1 && player2Health > 0) || (attacker === 2 && player1Health > 0)) {
+                targetEl.classList.add('hit');
+                setTimeout(() => targetEl.classList.remove('hit'), 300);
+            }
+            
+            playSound('special');
+            checkGameOver();
+        }
+
+        function checkGameOver() {
+            if (player1Health <= 0) {
+                gameOver = true;
+                victoryMessage.innerHTML = "🏆 โซโล ชนะ! ⚔️<br><small>มัสเตอร์ดาบสามดาบ!</small>";
+                victoryMessage.style.display = 'block';
+            } else if (player2Health <= 0) {
+                gameOver = true;
+                victoryMessage.innerHTML = "🏆 ลูฟี่ ชนะ! 👑<br><small>จราจรหมวกฟาง!</small>";
+                victoryMessage.style.display = 'block';
+            }
+        }
+
+        function showMessage(text, duration) {
+            const tempMsg = document.createElement('div');
+            tempMsg.style.position = 'absolute';
+            tempMsg.style.top = '150px';
+            tempMsg.style.left = '50%';
+            tempMsg.style.transform = 'translateX(-50%)';
+            tempMsg.style.background = 'rgba(255, 255, 255, 0.9)';
+            tempMsg.style.padding = '10px 20px';
+            tempMsg.style.borderRadius = '10px';
+            tempMsg.style.fontSize = '18px';
+            tempMsg.style.fontWeight = 'bold';
+            tempMsg.style.color = '#333';
+            tempMsg.style.border = '2px solid #FFD700';
+            tempMsg.innerHTML = text;
+            
+            document.body.appendChild(tempMsg);
+            setTimeout(() => document.body.removeChild(tempMsg), duration);
+        }
+
+        function resetGame() {
+            player1Health = 100;
+            player2Health = 100;
+            health1.style.width = '100%';
+            health2.style.width = '100%';
+            gameOver = false;
+            victoryMessage.style.display = 'none';
+            
+            // รีเซ็ตตำแหน่ง
+            player1.style.left = '100px';
+            player2.style.left = (window.innerWidth - 200) + 'px';
+            
+            showMessage("🎮 เริ่มเกมใหม่! 🎮", 2000);
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            switch(e.key.toLowerCase()) {
+                case 'a': movePlayer(1, 'left'); break;
+                case 'd': movePlayer(1, 'right'); break;
+                case 's': attack(1); break;
+                case 'w': specialAttack(1); break;
+                case 'arrowleft': movePlayer(2, 'left'); break;
+                case 'arrowright': movePlayer(2, 'right'); break;
+                case 'arrowdown': attack(2); break;
+                case 'arrowup': specialAttack(2); break;
+                case 'r': resetGame(); break;
+            }
+        });
+
+        // เริ่มเกม
+        showMessage("🏴‍☠️ ยินดีต้อนรับสู่ One Piece Fighter! 🏴‍☠️", 3000);
+    </script>
+</body>
+</html>
