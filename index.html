@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แนะนำตัว: อชิระ เธียรวรรณ</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter สำหรับตัวอักษรภาษาอังกฤษ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* สไตล์หลักสำหรับเว็บไซต์ */
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(to bottom, #111827, #000000);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* สไตล์ของคอนเทนเนอร์หลัก */
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            width: 90%;
+            margin: auto;
+            border: 2px solid #f06292;
+            box-shadow: 0 0 30px rgba(240, 98, 146, 0.5);
+        }
+
+        /* สไตล์แอนิเมชั่นสำหรับการเปลี่ยนหน้า */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page {
+            animation: fadeInSlideUp 0.8s ease-out;
+        }
+
+        /* สไตล์สำหรับโลโก้ BLACKPINK */
+        .bp-logo {
+            filter: drop-shadow(0 0 10px #f06292);
+            transition: transform 0.3s ease-in-out;
+        }
+        .bp-logo:hover {
+            transform: scale(1.1);
+        }
+        
+        /* สไตล์สำหรับรูปภาพสมาชิก */
+        .member-img {
+            transition: transform 0.3s ease-in-out;
+            border: 3px solid #f06292;
+        }
+        .member-img:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- คอนเทนเนอร์หลักของเว็บไซต์ -->
+    <div class="container rounded-3xl p-6 md:p-10 text-center">
+        <!-- ส่วนหัวของเว็บไซต์ -->
+        <header class="mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">เว็บไซต์แนะนำตัว</h1>
+            <p class="text-xl md:text-2xl font-light">อชิระ เธียรวรรณ (ฟิล์ม)</p>
+        </header>
+
+        <!-- ส่วนเมนูนำทาง -->
+        <nav class="mb-8">
+            <ul class="flex flex-wrap justify-center gap-4 text-sm md:text-base">
+                <li><button onclick="showPage('home')" class="py-2 px-4 rounded-full bg-pink-600 hover:bg-pink-700 transition-colors duration-300">หน้าแรก</button></li>
+                <li><button onclick="showPage('about')" class="py-2 px-4 rounded-full bg-pink-600 hover:bg-pink-700 transition-colors duration-300">เกี่ยวกับผม</button></li>
+                <li><button onclick="showPage('education')" class="py-2 px-4 rounded-full bg-pink-600 hover:bg-pink-700 transition-colors duration-300">การศึกษา</button></li>
+                <li><button onclick="showPage('blackpink')" class="py-2 px-4 rounded-full bg-pink-600 hover:bg-pink-700 transition-colors duration-300">BLACKPINK</button></li>
+                <li><button onclick="showPage('contact')" class="py-2 px-4 rounded-full bg-pink-600 hover:bg-pink-700 transition-colors duration-300">ติดต่อ</button></li>
+            </ul>
+        </nav>
+
+        <!-- ส่วนเนื้อหาหลักที่จะแสดงตามหน้าต่างๆ -->
+        <main id="content-area">
+            <!-- เนื้อหาหน้าแรก -->
+            <div id="home" class="page">
+                <h2 class="text-3xl font-bold mb-4 text-pink-500">ยินดีต้อนรับ!</h2>
+                <div class="bg-gray-800 rounded-2xl p-6">
+                    <p class="text-lg">สวัสดีครับ ยินดีต้อนรับสู่เว็บไซต์แนะนำตัวของผม</p>
+                    <p class="text-lg mt-2">ผมชื่อ <span class="text-pink-400 font-bold">อชิระ เธียรวรรณ</span> ชื่อเล่น <span class="text-pink-400 font-bold">ฟิล์ม</span></p>
+                    <div class="mt-6">
+                        <svg class="h-16 w-16 mx-auto animate-pulse" fill="#f06292" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm4-4h-2c0-1.66-1.34-3-3-3s-3 1.34-3 3H8c1.66-2.52 4.41-4 8-4s6.34 1.48 8 4z"/>
+                        </svg>
+                        <p class="mt-2">เรามาเริ่มต้นการสำรวจโลกของผมกันเลย!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- เนื้อหาเกี่ยวกับผม -->
+            <div id="about" class="page hidden">
+                <h2 class="text-3xl font-bold mb-4 text-pink-500">เกี่ยวกับผม</h2>
+                <div class="bg-gray-800 rounded-2xl p-6">
+                    <p class="text-lg">ผมมีความสนใจในเรื่อง <span class="text-pink-400 font-bold">ฟุตบอล</span> และชอบเตะฟุตบอลมาก ๆ ครับ</p>
+                    <div class="mt-6 flex justify-center items-center gap-4">
+                        <svg class="h-16 w-16 transition-transform hover:rotate-12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.32 15.356c.944-.813 2.144-.813 3.088 0l3.088 2.668c.944.813 2.144.813 3.088 0l3.088-2.668c.944-.813 2.144-.813 3.088 0l3.088 2.668V10.644c-.944-.813-2.144-.813-3.088 0L15.32 13.312c-.944.813-2.144.813-3.088 0L9.144 10.644c-.944-.813-2.144-.813-3.088 0L3.32 13.312z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                        </svg>
+                        <p class="text-xl">ความสนุกของการได้เล่นฟุตบอลคือสิ่งที่ดีที่สุด!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- เนื้อหาการศึกษา -->
+            <div id="education" class="page hidden">
+                <h2 class="text-3xl font-bold mb-4 text-pink-500">การศึกษา</h2>
+                <div class="bg-gray-800 rounded-2xl p-6">
+                    <p class="text-lg">ปัจจุบัน ผมกำลังศึกษาอยู่ที่</p>
+                    <p class="text-xl font-bold mt-2 text-pink-400">โรงเรียนสุรธรรมพิทักษ์</p>
+                    <div class="mt-6">
+                        <svg class="h-16 w-16 mx-auto animate-bounce" fill="#f06292" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3l-10 9h2v8h16v-8h2L12 3zm-2 16H8v-6h8v6h-2v-4h-4v4z"/>
+                        </svg>
+                        <p class="mt-2">สถานที่ที่ให้ความรู้และประสบการณ์ดี ๆ</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- เนื้อหา BLACKPINK -->
+            <div id="blackpink" class="page hidden">
+                <h2 class="text-3xl font-bold mb-4 text-pink-500">ทีมโปรด: BLACKPINK</h2>
+                <div class="bg-gray-800 rounded-2xl p-6">
+                    <p class="text-lg mb-4">วงโปรดของผมคือ BLACKPINK ครับ!</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <!-- Jisoo -->
+                        <div class="flex flex-col items-center">
+                            <img src="https://placehold.co/150x150/f06292/ffffff?text=Jisoo" alt="Image of Jisoo" class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover member-img">
+                            <p class="mt-2 font-semibold">Jisoo</p>
+                        </div>
+                        <!-- Jennie -->
+                        <div class="flex flex-col items-center">
+                            <img src="https://placehold.co/150x150/f06292/ffffff?text=Jennie" alt="Image of Jennie" class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover member-img">
+                            <p class="mt-2 font-semibold">Jennie</p>
+                        </div>
+                        <!-- Rosé -->
+                        <div class="flex flex-col items-center">
+                            <img src="https://placehold.co/150x150/f06292/ffffff?text=Rosé" alt="Image of Rosé" class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover member-img">
+                            <p class="mt-2 font-semibold">Rosé</p>
+                        </div>
+                        <!-- Lisa -->
+                        <div class="flex flex-col items-center">
+                            <img src="https://placehold.co/150x150/f06292/ffffff?text=Lisa" alt="Image of Lisa" class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover member-img">
+                            <p class="mt-2 font-semibold">Lisa</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <svg class="h-20 w-auto mx-auto bp-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <text x="50" y="60" font-family="Arial Black" font-size="28" fill="#f06292" text-anchor="middle" font-weight="bold">BLACKPINK</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- เนื้อหาติดต่อ -->
+            <div id="contact" class="page hidden">
+                <h2 class="text-3xl font-bold mb-4 text-pink-500">ติดต่อ</h2>
+                <div class="bg-gray-800 rounded-2xl p-6">
+                    <p class="text-lg">ขอบคุณที่เข้ามาเยี่ยมชมเว็บไซต์ของผมนะครับ!</p>
+                    <p class="mt-4">
+                        <span class="text-2xl font-bold text-pink-400">Connect with me!</span>
+                    </p>
+                    <div class="mt-6">
+                         <svg class="h-16 w-16 mx-auto animate-pulse" fill="#f06292" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm4-4h-2c0-1.66-1.34-3-3-3s-3 1.34-3 3H8c1.66-2.52 4.41-4 8-4s6.34 1.48 8 4z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- สคริปต์ JavaScript สำหรับการควบคุมหน้าเว็บและแอนิเมชั่น -->
+    <script>
+        // ฟังก์ชันสำหรับสลับหน้าเว็บ
+        function showPage(pageId) {
+            // ซ่อนทุกหน้า
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('active');
+            });
+            
+            // แสดงหน้าปัจจุบัน
+            const currentPage = document.getElementById(pageId);
+            if (currentPage) {
+                currentPage.classList.remove('hidden');
+                currentPage.classList.add('active');
+            }
+        }
+        
+        // แสดงหน้าแรกเมื่อโหลดเว็บไซต์ครั้งแรก
+        window.onload = function() {
+            showPage('home');
+        };
+    </script>
+</body>
+</html>
